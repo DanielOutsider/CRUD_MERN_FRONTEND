@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Backend Scripts
 
-This project was node and express, jwt, mondoDB wit https://github.com/DanielOutsider/CRUD_MEAN_BACKEND/tree/develop
+This project was node and express, jwt, mondoDB wit https://github.com/DanielOutsider/CRUD_MEAN_MERN_BACKEND
 
 ## Available Scripts
 
