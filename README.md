@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Backend Scripts
+
+This project was node and express, jwt, mondoDB wit https://github.com/DanielOutsider/CRUD_MEAN_BACKEND/tree/develop
+
 ## Available Scripts
 
 In the project directory, you can run:
