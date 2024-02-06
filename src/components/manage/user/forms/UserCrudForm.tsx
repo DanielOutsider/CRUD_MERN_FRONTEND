@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -19,83 +21,63 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 
-import { login } from './../../services/authService.ts';
+//import { login } from './../../services/authService.ts';
 import { AxiosResponse } from 'axios';
+import { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
 
-const loginSchema = Yup.object().shape(
+const userSchema = Yup.object().shape(
     {
+        name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid Email Format').required('Email is required'),
-        password: Yup.string().required('Password is required')
+        role: Yup.string().required('Role is required')
     }
 )
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const LoginForm = () => {
+const UserCrudForm = (props) => {
+
+    // Puedes acceder a las propiedades pasadas por el componente padre a través de props
+    // Por ejemplo, aquí estamos accediendo a la propiedad "name" y "age"
+    const { state } = props;
+
+    const roles = [
+        { value: 'admin', label: 'Admin' },
+        { value: 'user', label: 'User' },
+        { value: 'guest', label: 'Guest' },
+    ];
+
+    const [selectedRole, setSelectedRole] = useState('');
+
     // we define the initial credentials
     const initialCredentials = {
-        email: '',
-        password: ''
+        name: '',
+        email: ''
     }
 
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
-            <CssBaseline />
-            <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
-            sx={{
-                backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: (t) =>
-                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-            />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+
+            <Grid item xs={12} sm={8} md={5}> 
             <Box
                 sx={{
-                my: 8,
+
                 mx: 4,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                Sign in
-                </Typography>
 
                     {/* Formik to encapsule form */}
                     <Formik
                         initialValues={initialCredentials}
-                        validationSchema={loginSchema}
+                        validationSchema={userSchema}
                         onSubmit={async(values) => {
-                            login(values.email, values.password).then((response: AxiosResponse) => {
+                            /*login(values.email, values.password).then((response: AxiosResponse) => {
 
                                 if(response.status === 200){
                                     if(response.data.token){
@@ -128,7 +110,7 @@ const LoginForm = () => {
                                 });
                                 //enqueueSnackbar('This is a success message!', {variant: 'error'});                                               
                                 console.error(`[LOGIN ERROR]: Something went wrong: ${error}`)
-                            })
+                            })*/
                         }}
                     >
                         {
@@ -136,6 +118,19 @@ const LoginForm = () => {
                             (
                                 <Form>
                                     <Box sx={{ mt: 1 }}>
+
+                                        <Field
+                                            as={TextField}
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="name"
+                                            label="Name"
+                                            name="name"
+                                            autoComplete="name"
+                                            autoFocus
+                                        />
+
                                         <Field
                                             as={TextField}
                                             margin="normal"
@@ -147,46 +142,47 @@ const LoginForm = () => {
                                             autoComplete="email"
                                             autoFocus
                                         />
-                                        {errors.email && touched.email && <ErrorMessage name="email" component="div" />}
-                                        <Field
-                                            as={TextField}
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="password"
-                                            label="Password"
-                                            name="password"
-                                            type='password'
-                                            autoComplete="password"
-                                            autoFocus
-                                        />
-                                        {errors.password && touched.password && <ErrorMessage name="password" component="div" />}
-                                    <FormControlLabel
-                                        control={<Checkbox value="remember" color="primary" />}
-                                        label="Remember me"
-                                    />
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
-                                        Sign In
-                                    </Button>
-                                    {isSubmitting ? <p>Checking credentials...</p> : null}
-                                    <Grid container>
-                                        <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
+
+                                        <Select
+                                            sx={{ mt: 1 }}
+                                            fullWidth                      
+                                            id="role"
+                                            name="role"
+                                            label="Role"
+                                            value={selectedRole}
+                                            onChange={(e) => setSelectedRole(e.target.value)}
+                                        >
+                                        {roles.map((role) => (
+                                            <MenuItem key={role.value} value={role.value}>
+                                            {role.label}
+                                            </MenuItem>
+                                        ))}
+                                        </Select>
+
+                                        <Grid item xs={12} container spacing={1} sx={{ mt: 3 }}>
+                                            <Grid item xs={6}>
+                                                <Button
+                                                type="button"
+                                                fullWidth
+                                                variant="outlined"
+                                                onClick={props?.onCloseDialog}
+                                                >
+                                                Close
+                                                </Button>
+                                            </Grid>
+
+                                            <Grid item xs={6}>
+                                                <Button
+                                                type="submit"
+                                                fullWidth
+                                                variant="contained"
+                                                disabled={isSubmitting}
+                                                >
+                                                {state}
+                                                </Button>
+                                            </Grid>   
                                         </Grid>
-                                        <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                        </Grid>
-                                    </Grid>
-                                    <Copyright sx={{ mt: 5 }} />
+                                    {isSubmitting ? <p>Checking credentials...</p> : null}                                    
                                     </Box>
                                 </Form>
                             )
@@ -196,9 +192,8 @@ const LoginForm = () => {
 
             </Box>
             </Grid>
-        </Grid>
-        </ThemeProvider>
+
     );
 }
 
-export default LoginForm;
+export default UserCrudForm;

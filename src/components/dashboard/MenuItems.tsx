@@ -4,18 +4,19 @@ import React from "react";
 import { ListItemButton } from "@mui/material";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { Link } from 'react-router-dom';
 
 // MAterial icon components
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import SupportIcon from '@mui/icons-material/Support';
+//import SupportIcon from '@mui/icons-material/Support';
 
 export const MenuItems = (
     <React.Fragment>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/manage/users">
             <ListItemIcon>
                 <SupervisedUserCircleIcon/>
             </ListItemIcon>
-            <ListItemText primary="katas"/>
+            <ListItemText primary="Users"/>
         </ListItemButton>
     </React.Fragment>
 )

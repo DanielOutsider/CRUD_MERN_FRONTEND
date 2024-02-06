@@ -94,7 +94,7 @@ const Drawer = styled( MuiDrawer, {
 
 const myTheme = createTheme();
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
 
     const [open, setOpen] = useState(true);
 
@@ -135,7 +135,7 @@ export const Dashboard = () => {
                             sx={{
                                 flexGrow: 1
                             }}>
-                            Code veri...
+                            React Node MUI
                         </Typography>
 
                         { /* Icon show notifications */ }     
@@ -191,20 +191,23 @@ export const Dashboard = () => {
                     >
                     {/* Toolbar with the content */}
                     {/* Todo change for the navigation content by URL Stack of Routes */}
-                    <Container maxWidth='lg' sx={{
-                        mt: 4,
-                        mg: 4
+                    <Container maxWidth={false} sx={{
+                        mt: 10,
+                        mg: 4,
                     }}>
 
                         <Grid item xs={12} md={8} lg={9}>
-                            <Paper sx={{
+                            <div>{props?.children}</div>
+                            {/* <Paper sx={{
                                 p: 2,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                height: 240
+                                marginTop: 10,
                             }}>
                             
-                            </Paper>
+
+                                <div>{props?.children}</div>
+                            </Paper> */}
                         </Grid>
 
                     </Container>

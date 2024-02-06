@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionStorage } from "../hooks/useSessionStorage.ts";
+import { Dashboard } from "../components/dashboard/Dashboard.tsx";
 
 export const DashboardPage = () => {
 
@@ -14,10 +15,6 @@ export const DashboardPage = () => {
     }, [loggedIn])
 
     return (
-        <div>
-            <h1>
-                Dashboard Page
-            </h1>
-        </div>
+        <Dashboard />
     )
 }
