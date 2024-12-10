@@ -1,0 +1,60 @@
+/* Estilos básicos para el sidebar */
+.sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin-top: 70px;
+    background-color: #343a40;
+    color: white;
+    transition: transform 0.3s ease, width 0.3s ease;
+    transform: translateX(0);
+  }
+  
+  .sidebar-nav.collapsed {
+    width: 65px; /* Ancho pequeño cuando está colapsado */
+  }
+  
+  .sidebar-nav.expanded {
+    width: 240px; /* Ancho grande cuando está expandido */
+  }
+  
+  #sidebarnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #sidebarnav li {
+    margin: 15px 0;
+  }
+  
+  #sidebarnav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-nav.expanded #sidebarnav li a {
+    opacity: 1;
+  }
+  
+  .sidebar-nav.collapsed #sidebarnav li a {
+    opacity: 0; /* Ocultar texto cuando está colapsado */
+  }
+  
+  #sidebarnav li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para el botón de toggle */
+  button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+  }
+  

@@ -1,13 +1,16 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import './AuthLayout.css';
 
 const AuthLayout = ({ children }) => {
     return (
-        <Container className="mt-5">
-            <div className="auth-wrapper">
-                {children}
+        <div className="auth-layout">
+            <div className="auth-image"></div>
+            <div className="auth-form">
+                <div className="auth-wrapper">
+                    {children}
+                </div>
             </div>
-        </Container>
+        </div>
     );
 };
 

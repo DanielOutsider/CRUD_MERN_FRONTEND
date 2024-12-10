@@ -1,0 +1,23 @@
+/* Clase personalizada para una sombra más específica */
+/* En el caso de que quieras aplicar más estilos de grid desde tu archivo CSS */
+.topbar {
+    /*display: flex;
+    align-items:center;
+
+	flex-direction:row;
+	flex-wrap:wrap;*/
+    align-items: stretch;
+    height: 70px;
+    background: #fff;
+    z-index: 1;
+    transition: .2s ease-in;
+    box-shadow: 1px 0 7px rgba(0, 0, 0, .05);
+}
+
+.navbar-nav-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    height: 100%;
+}

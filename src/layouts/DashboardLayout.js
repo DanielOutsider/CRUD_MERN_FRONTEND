@@ -1,20 +1,26 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import Sidebar from '../components/Sidebar'; // Componente de Sidebar
-import Header from '../components/Header'; // Componente de Header
+import React, { useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import './DashboardLayout.css';
 
 const DashboardLayout = ({ children }) => {
-    return (
-        <Container fluid>
-            <Header />
-            <div className="dashboard-container">
-                <Sidebar />
-                <main className="content">
-                    {children}
-                </main>
-            </div>
-        </Container>
-    );
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true); // Mantener el estado localmente
+
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(!isSidebarExpanded); // Cambiar el estado localmente
+  };
+
+  return (
+    <div className="dashboard-container">
+      <Sidebar isExpanded={isSidebarExpanded} toggleSidebar={toggleSidebar} />
+      <div className="main-content">
+        <Header />
+        <div className={`content-wrapper ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DashboardLayout;
